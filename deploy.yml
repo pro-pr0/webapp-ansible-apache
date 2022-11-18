@@ -4,9 +4,13 @@
   become: true
   vars:
   pre_tasks:
-    - name: Install EPEL repo
-      package: name=epel-release state=present
+    - name: Install some packages
+      package: name= '{{ item }}'
       when: ansible_distribution == "CentOS"
+      loop:
+        - epel-release
+        - wget
+        - git
 
     - name: download pip script
       get_url:
